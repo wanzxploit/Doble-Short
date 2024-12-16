@@ -1,6 +1,8 @@
 
 # Doble Short
 
+![Banner](https://raw.githubusercontent.com/wanzxploit/Doble-Short/refs/heads/main/banner.png)
+
 ## Description
 Doble Short is a command-line tool to shorten links using various services such as Bitly, TinyURL, and Cutt.ly. It allows users to shorten single or multiple URLs with ease and track the status of each shortened link.
 
