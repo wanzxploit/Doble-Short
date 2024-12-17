@@ -11,7 +11,6 @@ console = Console()
 
 class ShortLinkGenerator:
     def __init__(self):
-        # API Keys
         self.api_keys = {
             "Bitly": "b39549e89f08923d7faef0b53e65d77cff589410",
             "TinyURL": "RbcrFbz7N6T67JdGeUVBMbrYylHDQYXyyrDK4mMefuYp0mHccX9gFX7WEEHw",
@@ -21,14 +20,9 @@ class ShortLinkGenerator:
 
     def _banner(self):
         """Display a modern banner using Rich and figlet"""
-        # Figlet logo
         figlet_banner = subprocess.getoutput("figlet -f slant -w 80 'Shortener'")
         banner_text = f"[bold blue]{figlet_banner}[/bold blue]"
-        
-        # Print Figlet
         console.print(banner_text)
-        
-        # Social Media Table
         table = Table(title="[bold cyan]Doble Short Tools[/bold cyan]", expand=False, border_style="bold blue")
         table.add_column("Platform", style="blue", justify="left")
         table.add_column("Username / Link", style="cyan", justify="left")
@@ -63,8 +57,6 @@ class ShortLinkGenerator:
                 except Exception:
                     results.append([server, "[red]Failed[/red]"])
                 progress.update(task, advance=1)
-
-        # Display results in a table
         table = Table(title="[bold cyan]Short Link Results[/bold cyan]", border_style="blue")
         table.add_column("Server", style="blue")
         table.add_column("Short Link", style="cyan")
@@ -96,8 +88,6 @@ class ShortLinkGenerator:
                 except Exception:
                     results.append([link, "[red]Failed[/red]", "Error"])
                 progress.update(task, advance=1)
-
-        # Display results in a table
         table = Table(title=f"[bold cyan]Short Link Results - {server}[/bold cyan]", border_style="blue")
         table.add_column("Original Link", style="blue")
         table.add_column("Short Link", style="cyan")
@@ -105,13 +95,10 @@ class ShortLinkGenerator:
         for result in results:
             table.add_row(result[0], result[1], result[2])
         console.print(table)
-
-        # Save results to a file
         with open("short_results.txt", "w") as file:
             for result in results:
                 file.write(f"{result[0]} -> {result[1]} : {result[2]}\n")
         console.print(f"[bold blue]Results saved in 'short_results.txt'[/bold blue]")
-
     def _generate_short_link(self, server, url):
         """Generate short links for a given server"""
         api_key = self.api_keys[server]
@@ -129,14 +116,12 @@ class ShortLinkGenerator:
         except Exception as e:
             console.print(f"[red]Error on {server}: {e}[/red]")
             return "Failed"
-
     def run(self):
         """Run the application"""
         while True:
             os.system("clear")
             self._banner()
             self._show_menu()
-            
             choice = Prompt.ask("[bold cyan]Select Mode[/bold cyan]", choices=["1", "2", "3"], default="1")
             if choice == "1":
                 self.single_short()
@@ -146,7 +131,6 @@ class ShortLinkGenerator:
                 console.print("[bold blue]Thank you for using Doble Shortener![/bold blue]")
                 break
             console.input("\n[bold cyan]Press Enter to return to the menu...[/bold cyan]")
-
 def main():
     """Main function"""
     generator = ShortLinkGenerator()
